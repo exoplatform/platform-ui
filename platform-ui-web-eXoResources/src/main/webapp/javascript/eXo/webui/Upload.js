@@ -282,9 +282,9 @@
 		  var temp = file.value;
 
 		  if (file.files && file.files.length) {
-			  jCont.data("fileName", file.files[0].name);
+			  jCont.data("fileName", encodeURIComponent(file.files[0].name));
 		  } else {
-			  jCont.data("fileName", temp.split(/(\\|\/)/g).pop());
+			  jCont.data("fileName", encodeURIComponent(temp.split(/(\\|\/)/g).pop()));
 		  }
 
 		  var progressBarFrame = jCont.find(".progressBarFrame").first();
@@ -569,9 +569,9 @@
 		  var temp = file.value;
 
 		  if (file.files && file.files.length) {
-			  jCont.data("fileName", file.files[0].name);
+			  jCont.data("fileName", encodeURIComponent(file.files[0].name));
 		  } else {
-			  jCont.data("fileName", temp.split(/(\\|\/)/g).pop());
+			  jCont.data("fileName", encodeURIComponent(temp.split(/(\\|\/)/g).pop()));
 		  }
 
 		  var progressBarFrame = jCont.find(".progressBarFrame").first();

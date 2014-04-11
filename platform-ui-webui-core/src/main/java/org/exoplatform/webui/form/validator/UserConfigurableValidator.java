@@ -65,6 +65,11 @@ public class UserConfigurableValidator extends MultipleConditionsValidator {
 
     public static final String USERNAME = "username";
     public static final String GROUPMEMBERSHIP = "groupmembership";
+    public static final String IDENTIFIER = "identifier";
+    public static final String PAGE_NODE_NAME = "pagename:identifier";
+    public static final String GROUP_NAME = "groupname:identifier";
+    public static final String PORTAL_NAME = "portalname:identifier";
+    public static final String APPLICATION_CATEGORY_NAME = "categoryname:identifier";
     public static final String DEFAULT_LOCALIZATION_KEY = "ExpressionValidator.msg.value-invalid";
     /**
      * Note that this regular expression should actually validate comma-separated usernames. This is not the case as some
@@ -103,6 +108,7 @@ public class UserConfigurableValidator extends MultipleConditionsValidator {
     }
 
     private final String validatorName;
+    private final String defaultValidatorName;
     private final String localizationKey;
 
     // needed by @Serialized
@@ -119,7 +125,15 @@ public class UserConfigurableValidator extends MultipleConditionsValidator {
         this.exceptionOnMissingMandatory = exceptionOnMissingMandatory;
         this.trimValue = true;
         localizationKey = messageLocalizationKey != null ? messageLocalizationKey : DEFAULT_LOCALIZATION_KEY;
-        this.validatorName = configurationName != null ? configurationName : USERNAME;
+
+        int index = configurationName == null ? -1 : configurationName.indexOf(':');
+        if(index < 1) {
+            this.validatorName = configurationName != null ? configurationName : USERNAME;
+            this.defaultValidatorName = null;
+        } else {
+            this.validatorName = configurationName.substring(0, index);
+            this.defaultValidatorName = configurationName.substring(index + 1);
+        }
     }
 
     public UserConfigurableValidator(String configurationName) {
@@ -147,6 +161,9 @@ public class UserConfigurableValidator extends MultipleConditionsValidator {
     @Override
     protected void validate(String value, String label, CompoundApplicationMessage messages, UIFormInput uiInput) {
         ValidatorConfiguration configuration = configurations.get(validatorName);
+        if(configuration == null && defaultValidatorName != null) {
+            configuration = configurations.get(defaultValidatorName);
+        }
 
         if (value == null) {
             value = "";
@@ -165,6 +182,8 @@ public class UserConfigurableValidator extends MultipleConditionsValidator {
                 if (!Pattern.matches(GROUP_MEMBERSHIP_VALIDATION_REGEX, value)) {
                     messages.addMessage(localizationKey, new Object[] { label });
                 }
+            } else if (IDENTIFIER.equals(defaultValidatorName)) {
+                ConfigurableIdentifierValidator.validate(value, label, messages, uiInput, ConfigurableIdentifierValidator.DEFAULT_MIN_LENGTH, ConfigurableIdentifierValidator.DEFAULT_MAX_LENGTH);
             }
         } else {
             // otherwise, use the user-provided configuration
@@ -187,17 +206,22 @@ public class UserConfigurableValidator extends MultipleConditionsValidator {
 
         private ValidatorConfiguration(String propertyKey, Properties properties) {
             // used to assign backward compatible default values
-            boolean isUser = USERNAME.equals(propertyKey);
             String prefixedKey = KEY_PREFIX + propertyKey;
-
-            String property = properties.getProperty(prefixedKey + ".length.min");
-            minLength = property != null ? Integer.valueOf(property) : (isUser ? UsernameValidator.DEFAULT_MIN_LENGTH : 0);
-
-            property = properties.getProperty(prefixedKey + ".length.max");
-            maxLength = property != null ? Integer.valueOf(property) : (isUser ? UsernameValidator.DEFAULT_MAX_LENGTH
-                    : Integer.MAX_VALUE);
-
-            pattern = properties.getProperty(prefixedKey + ".regexp", Utils.USER_NAME_VALIDATOR_REGEX);
+            String minProperty = properties.getProperty(prefixedKey + ".length.min");
+            String maxProperty = properties.getProperty(prefixedKey + ".length.max");
+            if (USERNAME.equals(propertyKey)) {
+                minLength = minProperty != null ? Integer.valueOf(minProperty) : UsernameValidator.DEFAULT_MIN_LENGTH;
+                maxLength = maxProperty != null ? Integer.valueOf(maxProperty) : UsernameValidator.DEFAULT_MAX_LENGTH;
+                pattern = properties.getProperty(prefixedKey + ".regexp", Utils.USER_NAME_VALIDATOR_REGEX);
+            } else if (IDENTIFIER.equals(propertyKey)) {
+                minLength = minProperty != null ? Integer.valueOf(minProperty) : ConfigurableIdentifierValidator.DEFAULT_MIN_LENGTH;
+                maxLength = maxProperty != null ? Integer.valueOf(maxProperty) : ConfigurableIdentifierValidator.DEFAULT_MAX_LENGTH;
+                pattern = properties.getProperty(prefixedKey + ".regexp", ConfigurableIdentifierValidator.IDENTIFER_VALIDATOR_REGEX);
+            } else {
+                minLength = minProperty != null ? Integer.valueOf(minProperty) : 0;
+                maxLength = maxProperty != null ? Integer.valueOf(maxProperty) : Integer.MAX_VALUE;
+                pattern = properties.getProperty(prefixedKey + ".regexp", Utils.USER_NAME_VALIDATOR_REGEX);
+            }
             formatMessage = properties.getProperty(prefixedKey + ".format.message", pattern);
         }
 

@@ -22,6 +22,7 @@ package org.exoplatform.webui.bean;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.exoplatform.util.ReflectionUtil;
 import org.exoplatform.webui.core.UIComponent;
 import org.exoplatform.webui.form.UIForm;
@@ -111,7 +112,7 @@ public class ReflectionDataMapping implements BeanDataMapping {
             return;
         Class[] classes = new Class[] { uiFormInput.getTypeValue() };
         Method method = ReflectionUtil.getSetBindingMethod(bean, bindingField, classes);
-        method.invoke(bean, new Object[] { uiFormInput.getValue() });
+        method.invoke(bean, new Object[] { StringEscapeUtils.escapeHtml((String) uiFormInput.getValue()) });
     }
 
 }

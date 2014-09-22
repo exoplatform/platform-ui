@@ -194,8 +194,26 @@ table {
 			.selectbox{ width: 131px;}
 		}
 	}
-	.form-horizontal .control-group .controls input{
-		width: 270px;
+	.form-horizontal .control-group .controls{
+		input[type="text"], input[type="password"] {
+			width: 270px;
+		}
+		input[type="checkbox"], input[type="radio"] {
+			margin-top: 3px;
+		}
+	}
+}
+
+.ie8 {
+	.UICLVPortlet{
+		.pull-left {
+			+ .checkbox , + .radio {
+				margin-left: 10px;
+			}
+		}
+		.actionIcon.pull-right {
+			position: relative;
+		}
 	}
 }
 

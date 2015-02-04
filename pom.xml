@@ -53,8 +53,8 @@
     <!-- **************************************** -->
     <!-- Dependencies versions                    -->
     <!-- **************************************** -->
-    <org.exoplatform.depmgt.version>10-SNAPSHOT</org.exoplatform.depmgt.version>
-    <org.gatein.portal.version>4.2.x-PLF-SNAPSHOT</org.gatein.portal.version>
+    <org.exoplatform.depmgt.version>10-M1</org.exoplatform.depmgt.version>
+    <org.gatein.portal.version>4.2.0-M1-PLF</org.gatein.portal.version>
   </properties>
   <dependencyManagement>
     <!-- ### NEVER CHANGE THIS ORDER OF DEPMGT ### -->

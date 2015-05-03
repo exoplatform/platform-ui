@@ -279,7 +279,7 @@
         &:hover {
           background: @primaryBackgroundHover !important;
         }
-        &.active{
+        &.active,&.selected{
           background: @primaryBackground !important;
         }
 
@@ -710,7 +710,38 @@
 .fileContent,
 .mediaContent {
 	padding: 15px;
-
+    .title {
+		padding: 0 0 10px;
+		a.pull-right {
+			color: @textColor;
+			padding: 4px 6px;
+			line-height: 18px;
+			border: 1px solid transparent;
+			margin: 0px;
+			cursor: pointer;
+			&:hover {
+				color: @textColor;
+				#gradient > .vertical(@baseBackground, @primaryBackground);
+				line-height: 18px;
+				border: 1px solid @borderColor;
+				.border-radius(@borderRadiusSmall);
+			}
+			&:active,
+			&:focus,
+			&.active {
+				-webkit-box-shadow: 0px 0px 10px 0 rgba(0, 0, 0, 0.15) inset;
+				box-shadow: 0px 0px 10px 0 rgba(0, 0, 0, 0.15) inset;
+				border: 1px solid #c7c7c7;
+				-webkit-border-radius: 3px;
+				-moz-border-radius: 3px;
+				border-radius: 3px;
+				background-color: #f0f0f0;
+			}
+		}
+	}
+    .content {
+      text-align: center;
+    }
 	.textContent {
 		overflow: auto;
 
@@ -1206,32 +1237,33 @@
 
 /******** uiUnEditable **************/
 .uiUnEditable {
-	width: 380px;
 	margin: 0px auto;
 
 	.iconContainer {
-		float: left;
-		width: 100px;
-		text-align: right;
-		padding-top: 5px;
-	}
+      text-align: center;
 
-	.detailContainer {
-		margin-left: 120px;
-		text-align: center;
-
-		span {
-			display: block;
-			color: @baseColorLight;
-			margin-top: 10px;
-		}
-
-		h4 {
-			color: @baseColorLight;
-			margin-top: 0px;
-			text-shadow: none;
-		}
-	}
+      .nameDoc {
+        display: block;
+        color: @textLightColor;
+        margin: 15px 0;
+      }
+    }
+    .detailContainer {
+      text-align: center;
+      padding-bottom: 30px;
+      h4 {
+        color: @textLightColor;
+        margin-top: 0px;
+        margin-bottom: 20px;
+        text-shadow: none;
+      }
+      button, .btn {
+        margin: 0 7px 0 0;
+        [class^="uiIcon"] {
+          margin-right: 7px;
+        }
+      }
+    }
 }
 
 /******** uiExportNode **************/
@@ -1642,6 +1674,33 @@
 				min-height: auto;
 			}
 		}
+        div#UIDocumentContainer {
+          .dropdown-menu{
+            margin: 2px 0 0;
+            padding: 5px 0;
+          }
+          .nav {
+            margin: 0 10px 0 0;
+            padding: 0;
+          }
+          .nav-tabs ,.pagination ul,.breadcrumb{
+            margin: 0;
+            padding: 0;
+          }
+          ul,ol,dl {
+            padding: 0 0 0 40px;
+            margin: 15px 0;
+            ul,ol,dl {margin: 0;}
+            li {
+              list-style-type: disc;
+            }
+          }
+
+          ol li{
+            list-style-type: decimal;
+            ul li { list-style-type: disc;}
+          }
+      }
 	}
 }
 /*========== changeTypeLink =============*/
@@ -1653,15 +1712,34 @@
 	}
 }
 
-.UIJCRExplorer .UIDocumentWorkspace .UITabContent ul, .UIJCRExplorer .UIDocumentWorkspace .UITabContent ol, .UIJCRExplorer .UIDocumentWorkspace  .UITabContent dl {
-    padding: 0 40px;
-    margin-top: 15px;
+.UIJCRExplorer .UIDocumentWorkspace .UITabContent {
+  .dropdown-menu{
+    margin: 2px 0 0;
+    padding: 5px 0;
+  }
+  .nav {
+    margin: 0 10px 0 0;
+    padding: 0;
+  }
+  .nav-tabs ,.pagination ul,.breadcrumb{
+    margin: 0;
+    padding: 0;
+  }
+  ul,ol,dl {
+    padding: 0 0 0 40px;
+    margin: 15px 0;
+    ul,ol,dl {margin: 0;}
+    li {
+      list-style-type: disc;
+    }
+  }
+
+  ol li{
+    list-style-type: decimal;
+    ul li { list-style-type: disc;}
+  }
 }
 
-
-.UIJCRExplorer .UIDocumentWorkspace .UITabContent ul li {
-    list-style-type: disc;
-}
 
 /******************/
 .UIWCMDashboardPortlet {

@@ -56,8 +56,8 @@
     <!-- **************************************** -->
     <!-- Dependencies versions                    -->
     <!-- **************************************** -->
-    <org.exoplatform.depmgt.version>11-RC-SNAPSHOT</org.exoplatform.depmgt.version>
-    <org.gatein.portal.version>4.3.x-PLF-RC-SNAPSHOT</org.gatein.portal.version>
+    <org.exoplatform.depmgt.version>11-RC1-1</org.exoplatform.depmgt.version>
+    <org.gatein.portal.version>4.3.0-PLF-RC1-1</org.gatein.portal.version>
   </properties>
   <dependencyManagement>
     <!-- ### NEVER CHANGE THIS ORDER OF DEPMGT ### -->

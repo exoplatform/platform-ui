@@ -107,11 +107,6 @@
             <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
           </configuration>
         </plugin>
-        <plugin>
-          <groupId>org.lesscss</groupId>
-          <artifactId>lesscss-maven-plugin</artifactId>
-          <version>1.7.0.1.1</version>
-        </plugin>
       </plugins>
     </pluginManagement>
   </build>

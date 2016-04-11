@@ -37,7 +37,6 @@
             <plugin>
                 <groupId>org.lesscss</groupId>
                 <artifactId>lesscss-maven-plugin</artifactId>
-                <version>1.7.0.1.1</version>
                 <executions>
                     <execution>
                         <id>bootstrap</id>

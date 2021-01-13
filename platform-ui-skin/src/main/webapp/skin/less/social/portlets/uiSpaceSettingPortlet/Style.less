@@ -173,7 +173,12 @@
 
 		.mention-input {
 			margin-right: 75px;
+			flex : 1;
+			overflow: hidden;
 
+			.selectize-input {
+				text-overflow: inherit;
+			}
 			.suggestions {
 				border: 1px solid rgba(0, 0, 0, 0.2);
 				position: absolute;
@@ -203,6 +208,9 @@
 					}
 				}
 			}
+		}
+		.uiGrayLightBox{
+			display: flex;
 		}
 	}
 }

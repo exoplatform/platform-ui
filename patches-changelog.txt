@@ -1,5 +1,9 @@
               2021-02-08 eXo Support <support@exoplatform.org> 
 
-   # 5.3.6 Patches changelog: 
+# 5.3.6 Patches changelog: 
+
+* 2021-02-08: Patch-5.3.6:1, Author: Jihed Chabbeh<jchabbeh@exoplatform.com>
+
+  -  https://github.com/exoplatform/platform-ui/pull/107
 
 
